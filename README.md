@@ -24,7 +24,7 @@ Keep both files together in the same folder. Any folder will do.
 
 1. Download the two files and put them in a folder, for example `C:\ProgramData\Home` or `C:\Home`.
 2. Double-click **`Start Home.vbs`** to try it.
-3. To make it open automatically when she logs in:
+3. To make it open automatically when the user logs in:
    1. Press **Win + R**, type `shell:startup` and press Enter.
    2. Right-click inside the folder that opens and choose **New > Shortcut**.
    3. Browse to `Start Home.vbs` and finish the wizard.
