@@ -2,11 +2,12 @@
 
 A simple, full-screen home screen for Windows with a few very large, high-contrast buttons. It is designed for people who are partially sighted or who find computers confusing, and who only need to open a handful of websites and programs.
 
-Each button opens a website, a program (such as Word or Zoom), or a shortcut. When the program is closed, the person lands straight back on the launcher.
+Each button opens a website, a program (such as Word or Zoom), or a shortcut. It can also include a **SHUT DOWN** button with a big YES/NO question first. When a program is closed, the person lands straight back on the launcher.
 
 - Works on Windows 10 and Windows 11
 - Nothing to install: it is a single PowerShell script plus a tiny starter file
 - Large buttons, with colours and font fully adjustable
+- Optional SHUT DOWN (or Restart) button with a large confirmation box
 - Big **CLOSE** button, so a helper can get to the rest of the computer
 - Can be set to open automatically when the computer starts
 
@@ -23,7 +24,7 @@ Keep both files together in the same folder. Any folder will do.
 
 1. Download the two files and put them in a folder, for example `C:\ProgramData\Home` or `C:\Home`.
 2. Double-click **`Start Home.vbs`** to try it.
-3. To make it open automatically when the user logs in:
+3. To make it open automatically when she logs in:
    1. Press **Win + R**, type `shell:startup` and press Enter.
    2. Right-click inside the folder that opens and choose **New > Shortcut**.
    3. Browse to `Start Home.vbs` and finish the wizard.
@@ -38,23 +39,46 @@ Open `Home.ps1` in Notepad. Near the top is a list like this:
 $Items = @(
     @{ Label = "EMAIL"; Target = "https://mail.google.com" },
     @{ Label = "NEWS";  Target = "https://www.bbc.co.uk/news" },
-    @{ Label = "WORD";  Target = "winword.exe" },
-    @{ Label = "ZOOM";  Target = "$env:APPDATA\Zoom\bin\Zoom.exe" }
+    #@{ Label = "WORD"; Target = "winword.exe" },
+    #@{ Label = "ZOOM"; Target = "$env:APPDATA\Zoom\bin\Zoom.exe" }
+    @{ Label = "SHUT DOWN"; Target = "shutdown.exe"; Args = "/s /t 0"; Confirm = "Turn the computer off?" }
 )
 ```
 
-Each line is one button. `Label` is the text shown on the button. `Target` can be:
+Each line is one button. `Label` is the text shown on the button, and `Target` can be:
 
 - a **web address**, such as `https://mail.google.com`
 - a **program name**, such as `winword.exe` (Word)
 - the **full path** to a program, such as `C:\Program Files\Something\app.exe`
 - a **shortcut file** (`.lnk`)
 
-Add or remove lines to change the number of buttons. Up to four buttons are shown in a 2x2 grid; five or more use three columns with a smaller font. Keep the labels short, since long text will not fit on large buttons.
+Rules to keep the list working:
+
+- Put a **comma at the end of every line except the last one** that is switched on.
+- A line starting with `#` is switched off. Remove the `#` to turn it back on, and keep the commas correct.
+- Keep labels short, since long text will not fit on large buttons.
+
+Up to four buttons are shown in a 2x2 grid. Five or more use three columns with a smaller font.
 
 **Finding a program's path:** right-click the program in the Start menu, choose **Open file location**, then right-click the shortcut there, choose **Properties** and copy the **Target**. You can also use the shortcut file from that folder directly as the `Target`.
 
 The Zoom path above is an example. Zoom's location can vary between installations, so adjust it if the Zoom button shows an error.
+
+### Optional extras for a button
+
+| Field | What it does |
+|---|---|
+| `Args` | Extra options passed to the program. |
+| `Confirm` | A question shown in a big YES/NO box before anything happens. Choosing NO, or pressing Escape, cancels. |
+
+### Shut down and restart buttons
+
+```powershell
+@{ Label = "SHUT DOWN"; Target = "shutdown.exe"; Args = "/s /t 0"; Confirm = "Turn the computer off?" }
+@{ Label = "RESTART";   Target = "shutdown.exe"; Args = "/r /t 0"; Confirm = "Restart the computer?" }
+```
+
+Windows still checks for unsaved work in open programs, so a document is not thrown away without being asked about first.
 
 ## Changing the look
 
@@ -65,7 +89,7 @@ The settings at the top of `Home.ps1` control the appearance:
 | `$BackgroundColourText` | The screen behind the buttons |
 | `$ButtonColourText` | The buttons themselves |
 | `$FontColourText` | The writing on the buttons |
-| `$CloseButtonColourText` | The CLOSE button |
+| `$CloseButtonColourText` | The CLOSE button (also the YES button in confirmation boxes) |
 | `$CloseFontColourText` | The writing on the CLOSE button |
 | `$FontName` | The font, for example `Segoe UI`, `Arial` or `Verdana` |
 | `$FontScale` | Text size: `1.0` is the default, `1.3` is 30% bigger |
@@ -100,6 +124,9 @@ Closing the launcher only closes the launcher. It does not shut down the compute
 - With **extended** screens, the launcher appears on the main display only.
 
 ## Troubleshooting
+
+**Nothing appears when I start it after editing the list.**
+Check the commas. Every active line in the list needs a comma at the end except the last one, and every `@{` needs a matching `}`.
 
 **A button shows "Sorry, ... could not be opened."**
 The `Target` is wrong. Check the spelling, or use the full path or a shortcut file instead.
