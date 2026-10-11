@@ -21,6 +21,9 @@ $ButtonColourText     = "#FFD600"   # the buttons themselves (foreground)
 $FontColourText       = "Black"     # the writing on the buttons
 $CloseButtonColourText = "#B00020"  # the big CLOSE button at the bottom (dark red)
 $CloseFontColourText   = "White"    # writing on the CLOSE button
+$HoverColourText       = "White"    # button colour while the mouse is over it
+$PressedColourText     = "#FF8C00"  # button colour at the moment it is clicked (orange)
+$CloseHoverColourText  = "#FF1744"  # CLOSE button colour while the mouse is over it (bright red)
 $FontName             = "Segoe UI"  # e.g. Arial, Verdana, Tahoma
 $FontScale            = 1.0         # 1.0 = default size, 1.2 = 20% bigger, 0.8 = smaller
 $CoverTaskbar         = $true       # $true = fills the whole screen
@@ -39,6 +42,9 @@ $ButtonColor     = Get-Colour $ButtonColourText "Yellow"
 $TextColor       = Get-Colour $FontColourText "Black"
 $CloseColor      = Get-Colour $CloseButtonColourText "Red"
 $CloseTextColor  = Get-Colour $CloseFontColourText "White"
+$HoverColor      = Get-Colour $HoverColourText "White"
+$PressedColor    = Get-Colour $PressedColourText "Orange"
+$CloseHoverColor = Get-Colour $CloseHoverColourText "Red"
 
 $screen = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds
 $cols = if ($Items.Count -le 4) { 2 } else { 3 }
@@ -99,12 +105,18 @@ function Confirm-Big($message) {
     $yes.DialogResult = 'Yes'
     $yes.BackColor = $CloseColor
     $yes.ForeColor = $CloseTextColor
+    $yes.FlatStyle = 'Flat'
+    $yes.FlatAppearance.MouseOverBackColor = $CloseHoverColor
+    $yes.FlatAppearance.MouseDownBackColor = $PressedColor
 
     $no = New-Object System.Windows.Forms.Button
     $no.Text = "NO"
     $no.DialogResult = 'No'
     $no.BackColor = $BackgroundColor
     $no.ForeColor = $ButtonColor
+    $no.FlatStyle = 'Flat'
+    $no.FlatAppearance.MouseOverBackColor = [System.Drawing.Color]::FromArgb(255, 64, 64, 64)
+    $no.FlatAppearance.MouseDownBackColor = $PressedColor
 
     foreach ($b in @($yes, $no)) {
         $b.Dock = 'Fill'
@@ -153,6 +165,8 @@ foreach ($item in $Items) {
     $btn.ForeColor = $TextColor
     $btn.FlatStyle = 'Flat'
     $btn.FlatAppearance.BorderSize = 0
+    $btn.FlatAppearance.MouseOverBackColor = $HoverColor
+    $btn.FlatAppearance.MouseDownBackColor = $PressedColor
     $btn.Add_Click({ param($s, $e) Open-Item $s.Tag })
     $table.Controls.Add($btn)
 }
@@ -169,6 +183,8 @@ $closeBtn.BackColor = $CloseColor
 $closeBtn.ForeColor = $CloseTextColor
 $closeBtn.FlatStyle = 'Flat'
 $closeBtn.FlatAppearance.BorderSize = 0
+$closeBtn.FlatAppearance.MouseOverBackColor = $CloseHoverColor
+$closeBtn.FlatAppearance.MouseDownBackColor = $PressedColor
 $closeBtn.Add_Click({ $form.Close() })
 $form.Controls.Add($closeBtn)
 $table.BringToFront()   # lets the buttons fill the space above CLOSE
