@@ -4,7 +4,7 @@
 
 $Items = @(
     @{ Label = "email"; Target = "https://mail.google.com" },
-    @{ Label = "precriptions";  Target = "https://systmonline.tpp-uk.com/" },
+    @{ Label = "prescriptions";  Target = "https://systmonline.tpp-uk.com/" },
     @{ Label = "ocado";  Target = "https://sso.ocado.com/ocado/login" },
     #@{ Label = "word";  Target = "winword.exe" },
     #@{ Label = "zoom";  Target = "$env:APPDATA\Zoom\bin\Zoom.exe" }
