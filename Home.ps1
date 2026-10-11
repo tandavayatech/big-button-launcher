@@ -3,11 +3,11 @@
 # a program name (e.g. winword.exe), a full path to an .exe, or a shortcut (.lnk).
 
 $Items = @(
-    @{ Label = "EMAIL"; Target = "https://mail.google.com" },
-    @{ Label = "PRESCRIPTIONS";  Target = "https://systmonline.tpp-uk.com/" },
-    @{ Label = "OCADO";  Target = "https://sso.ocado.com/ocado/login" }
-    #@{ Label = "WORD";  Target = "winword.exe" },
-    #@{ Label = "ZOOM";  Target = "$env:APPDATA\Zoom\bin\Zoom.exe" }
+    @{ Label = "email"; Target = "https://mail.google.com" },
+    @{ Label = "prescriptions";  Target = "https://systmonline.tpp-uk.com/" },
+    @{ Label = "ocado";  Target = "https://sso.ocado.com/ocado/login" }
+    #@{ Label = "word";  Target = "winword.exe" },
+    #@{ Label = "zoom";  Target = "$env:APPDATA\Zoom\bin\Zoom.exe" }
 )
 
 # ---- LOOK AND FEEL: change these three colours and the font ----
