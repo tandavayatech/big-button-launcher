@@ -119,4 +119,4 @@ Please open an issue and say which program or browser you are using.
 
 ## Licence
 
-Add your chosen licence here (for example MIT) and include a matching `LICENSE` file in the repository.
+Released under the [MIT Licence](LICENSE). You are free to use, copy, modify and share it, and it comes with no warranty.
