@@ -26,7 +26,7 @@ $PressedColourText     = "#FF8C00"  # button colour at the moment it is clicked 
 $CloseHoverColourText  = "#FF1744"  # CLOSE button colour while the mouse is over it (bright red)
 $FontName             = "Segoe UI"  # e.g. Arial, Verdana, Tahoma
 $FontScale            = 1.0         # 1.0 = default size, 1.2 = 20% bigger, 0.8 = smaller
-$CoverTaskbar         = $true       # $true = fills the whole screen
+$CoverTaskbar         = $false       # $true = fills the whole screen
                                     # $false = leaves the taskbar and Start button visible
 # ----------------------------------------------------------------
 
