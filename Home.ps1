@@ -141,7 +141,7 @@ function Open-Item($item) {
     if ($item.Confirm -and -not (Confirm-Big $item.Confirm)) { return }
     try {
         # The launcher stays where it is and the new program opens in front of it.
-        # When she closes that program, Windows drops straight back to the launcher.
+        # When the user closes that program, Windows drops straight back to the launcher.
         if ($item.Args) {
             Start-Process -FilePath $item.Target -ArgumentList $item.Args -WindowStyle Hidden -ErrorAction Stop
         } else {
