@@ -91,6 +91,9 @@ The settings at the top of `Home.ps1` control the appearance:
 | `$FontColourText` | The writing on the buttons |
 | `$CloseButtonColourText` | The CLOSE button (also the YES button in confirmation boxes) |
 | `$CloseFontColourText` | The writing on the CLOSE button |
+| `$HoverColourText` | The colour of a button while the mouse is over it (pick one that stands out from the button colour) |
+| `$PressedColourText` | The colour of a button at the moment it is clicked |
+| `$CloseHoverColourText` | The colour of the CLOSE button (and the YES button) while the mouse is over it |
 | `$FontName` | The font, for example `Segoe UI`, `Arial` or `Verdana` |
 | `$FontScale` | Text size: `1.0` is the default, `1.3` is 30% bigger |
 | `$CoverTaskbar` | `$true` fills the whole screen; `$false` leaves the taskbar and Start button visible |
